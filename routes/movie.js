@@ -4,6 +4,16 @@ const router =express.Router()
 //Models
 const Movie =require("../models/Movie")
 
+router.get("/",(req,res)=>{
+    const promise= Movie.find({})
+    promise
+        .then((data)=>{
+            res.json(data)
+        })
+        .catch((err)=>{
+            res.json(err)
+        })
+})
 
 router.post("/",(req,res,next)=>{
     const data = req.body;
@@ -22,6 +32,21 @@ router.post("/",(req,res,next)=>{
         .catch((err)=>{
             res.json(err)
         })
+
+})
+
+router.get("/:movie_id",(req,res,next)=>{
+    const {movie_id}=req.params
+
+    const promise = Movie.findById(movie_id)
+    promise
+        .then((data)=>{
+            res.json(data)
+        })
+        .catch(()=>{
+            next({message:"Film Bulunamadı",code:88})
+        })
+
 
 })
 
