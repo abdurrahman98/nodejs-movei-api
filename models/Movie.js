@@ -13,7 +13,7 @@ const MovieSchema  = new Schema({
     year:Number,
     imdb_score:Number,
     director_id:mongoose.Types.ObjectId,
-    date:{
+    createdAt:{
         type:Date,
         default:Date.now
     }

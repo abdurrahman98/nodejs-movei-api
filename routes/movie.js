@@ -35,6 +35,21 @@ router.post("/",(req,res,next)=>{
 
 })
 
+//Top 10 list
+
+// (/:movei_id) get endpointi ile çakıştığı için bunu onun üzerine yazıyoruz
+router.get("/top10",(req,res)=>{
+    const promise= Movie.find({}).limit(10).sort({imdb_score:-1}) //-1 => büyükten küçüğe sıralar, 1 => küçükten büyüğe sıralar
+    promise
+        .then((data)=>{
+            res.json(data)
+        })
+        .catch((err)=>{
+            res.json(err)
+        })
+})
+
+
 router.get("/:movie_id",(req,res,next)=>{
     const {movie_id}=req.params
 
@@ -81,6 +96,24 @@ router.delete("/:movie_id",(req,res,next)=>{
 
 
 })
+//Between
+router.get("/between/:start_year/:last_year",(req,res)=>{
+    const {start_year,last_year}=req.params
+    const promise=Movie.find({
+        year:{
+            "$gte":parseInt(start_year),// büyük eşit "e" eşitlik kontrolü için kullanılıyor
+            "$lte":parseInt(last_year) //küçük eşit
+        }
+    })
+    promise
+        .then(data=>{
+            res.json(data)
+        })
+
+})
+
+
+
 
 module.exports= router;
 
