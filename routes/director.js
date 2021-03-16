@@ -129,6 +129,29 @@ router.get("/:director_id",(req,res)=>{
 
 })
 
+router.put("/:director_id",(req,res)=>{
+    const {director_id}=req.params
+    const promise=Director.findByIdAndUpdate(director_id,req.body,{new:true})
+    promise
+        .then(data=>{
+            res.json(data)
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+})
+
+router.delete("/:director_id",(req,res)=>{
+    const {director_id}=req.params;
+    const promise=Director.findByIdAndRemove(director_id)
+    promise
+        .then(data=>{
+            res.json(data)
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+})
 
 
 module.exports=router;
