@@ -6,7 +6,9 @@ const Schema =mongoose.Schema;
 const MovieSchema  = new Schema({
     title:{
         type:String,
-        required:true
+        required:[true,"`{PATH} alanı zorunludur`"],
+        maxlength:[15,"`{PATH} alanı (`{VALUE}`) , (15) karakterden küçük olmalıdır`"],
+        minlength:[3,"``{PATH} alanı (`{VALUE}`), (3) karakterden büyük olmalıdır"]
     },
     category:String,
     country:String,
